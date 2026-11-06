@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Adsterra Popunder Script -->
+    <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
+
+    <!-- Adsterra Social Bar Script -->
+    <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -161,6 +168,16 @@
             color: #fff;
             border-color: #ff5500;
             box-shadow: 0 2px 8px rgba(255, 85, 0, 0.4);
+        }
+
+        /* Ad Container Styling */
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 12px 0;
+            overflow: hidden;
+            width: 100%;
         }
 
         /* Page Switcher Views */
@@ -391,6 +408,20 @@
         <span class="cat-chip" onclick="selectCat(this, 'Exclusive')">Exclusive</span>
     </div>
 
+    <!-- Top Banner Ad (728x90) -->
+    <div class="ad-container">
+        <script>
+          atOptions = {
+            'key' : '2e3d20a07639f661c1593b4c267d65ab',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://czernik.org/22/2e3d20a07639f661c1593b4c267d65ab"></script>
+    </div>
+
     <!-- Side Drawer Menu -->
     <div class="backdrop" id="backdrop" onclick="toggleSideMenu()"></div>
     <div class="side-menu" id="sideMenu">
@@ -409,6 +440,13 @@
     <!-- Page 1: YouTube Style Home Feed -->
     <div id="page-home" class="page-view active-page">
         <div style="padding: 16px; max-width: 600px; margin: 0 auto;">
+            
+            <!-- Native Banner Ad inside Feed -->
+            <div class="ad-container" style="margin-bottom: 16px;">
+                <script async="async" data-cfasync="false" src="https://czernik.org/21/1830e2d4c289f0c82507474c6b99913b"></script>
+                <div id="container-1830e2d4c289f0c82507474c6b99913b"></div>
+            </div>
+
             <div class="video-feed" id="videoFeed">
                 
                 <!-- Video Card with Your Links Added -->
@@ -521,4 +559,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
