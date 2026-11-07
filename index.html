@@ -6,10 +6,10 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Adsterra Popunder Script -->
+    <!-- Popunder Ad Script -->
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
-    <!-- Adsterra Social Bar Script -->
+    <!-- Social Bar Ad Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
 
     <style>
@@ -408,7 +408,7 @@
         <span class="cat-chip" onclick="selectCat(this, 'Exclusive')">Exclusive</span>
     </div>
 
-    <!-- Top Banner Ad (728x90) -->
+    <!-- Banner 728x90 Ad (ক্যাটাগরি বারের নিচে) -->
     <div class="ad-container">
         <script>
           atOptions = {
@@ -441,7 +441,7 @@
     <div id="page-home" class="page-view active-page">
         <div style="padding: 16px; max-width: 600px; margin: 0 auto;">
             
-            <!-- Native Banner Ad inside Feed -->
+            <!-- Native Banner Ad (হোম ফিডের উপরে) -->
             <div class="ad-container" style="margin-bottom: 16px;">
                 <script async="async" data-cfasync="false" src="https://czernik.org/21/1830e2d4c289f0c82507474c6b99913b"></script>
                 <div id="container-1830e2d4c289f0c82507474c6b99913b"></div>
@@ -449,8 +449,8 @@
 
             <div class="video-feed" id="videoFeed">
                 
-                <!-- Video Card with Your Links Added -->
-                <div class="video-card" onclick="openPlayer('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
+                <!-- Video Card (আপনার দেওয়া লিংক এবং থাম্বনেইল সহ যুক্ত করা হলো) -->
+                <div class="video-card" onclick="openPlayer('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal with a Huge Cock')">
                     <div class="media-preview-box">
                         <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
                     </div>
@@ -484,16 +484,37 @@
     <div class="toast-msg" id="toast">Action Activated</div>
 
     <script>
-        function switchPage(pageId) {
+        // পেজ লোড হওয়ার সময় ইনিশিয়াল হিস্ট্রি স্টেট সেট করা
+        window.history.replaceState({page: 'home'}, '', '#home');
+
+        function switchPage(pageId, pushHistory = true) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
             document.getElementById('page-' + pageId).classList.add('active-page');
 
             const videoElem = document.getElementById('mainVideoPlayer');
             if(pageId !== 'player') {
                 videoElem.pause();
+                videoElem.src = ""; // পেজ পরিবর্তন হলে ভিডিও রিসেট হবে
             }
             window.scrollTo(0, 0);
+
+            // ব্রাউজার হিস্ট্রি ম্যানেজ করা যাতে ব্যাক বাটন কাজ করে
+            if (pushHistory) {
+                if (pageId === 'player') {
+                    window.history.pushState({page: 'player'}, '', '#player');
+                } else {
+                    window.history.pushState({page: 'home'}, '', '#home');
+                }
+            }
         }
+
+        // ফোনের ব্যাক বাটন (Popstate) হ্যান্ডলার
+        window.addEventListener('popstate', function(event) {
+            if (document.getElementById('page-player').classList.contains('active-page')) {
+                // প্লেয়ার পেজে থাকা অবস্থায় ব্যাক করলে সরাসরি হোম পেজে নিয়ে যাবে (হিস্ট্রি পুশ না করে)
+                switchPage('home', false);
+            }
+        });
 
         function openPlayer(videoUrl = "", title = "") {
             switchPage('player');
