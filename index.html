@@ -6,8 +6,8 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Video.js CSS CDN -->
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <!-- Clappr Player CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 
     <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
@@ -254,45 +254,20 @@
         }
         .player-wrapper {
             width: 100%;
+            aspect-ratio: 16/9;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Video.js পারফেক্ট আসপেক্ট রেশিও এবং কন্টেইন ফিক্স */
-        .video-js {
+        /* Clappr Player Customization & Accent Color */
+        .player-wrapper [data-player] {
             width: 100% !important;
-            height: auto !important;
-            aspect-ratio: 16/9;
-            background-color: #000;
+            height: 100% !important;
         }
-        .video-js .vjs-tech {
-            object-fit: contain !important; /* ভিডিও যেন অতিরিক্ত জুম হয়ে না কেটে যায় */
-        }
-        
-        .video-js.vjs-fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            padding-top: 0 !important;
-            background-color: #000;
-        }
-
-        .video-js .vjs-big-play-button {
-            background-color: #ff5500;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .video-js .vjs-control-bar {
-            background-color: rgba(18, 18, 26, 0.95);
-        }
-        .vjs-play-progress {
+        .media-control[data-media-control] .media-control-layer[data-controls] .bar-background[data-background],
+        .media-control[data-media-control] .media-control-layer[data-controls] .bar-fill-1[data-fill] {
             background-color: #ff5500 !important;
         }
 
@@ -451,19 +426,12 @@
     <!-- Main Content Area -->
     <div class="main-container">
         
-        <!-- Active Video Player Section -->
+        <!-- Active Video Player Section (Clappr Player) -->
         <div id="activePlayerSection">
-            <div class="player-wrapper">
-                <video-js id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" playsinline>
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                    </p>
-                </video-js>
-            </div>
+            <div class="player-wrapper" id="clappr-player-container"></div>
             <div class="player-info-box">
                 <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
-                <p style="font-size: 12px; color: #888899;">Streaming smoothly via XSTAR Core</p>
+                <p style="font-size: 12px; color: #888899;">Streaming smoothly via Clappr Core</p>
                 
                 <!-- Adsterra 728x90 Banner Ad -->
                 <div id="adsterra-banner-container" style="margin-top: 15px; text-align: center; overflow-x: auto;">
@@ -505,21 +473,8 @@
     <!-- Adsterra Popunder Script -->
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
-    <!-- Video.js JS CDN -->
-    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
     <script>
-        let player = videojs('my-video', {
-            fluid: true,
-            responsive: true,
-            fill: true,
-            controlBar: {
-                volumePanel: { inline: false }
-            },
-            fullscreen: {
-                options: { navigationUI: 'hide' }
-            }
-        });
+        let clapprPlayer = null;
 
         function playVideo(videoUrl, title) {
             const playerSection = document.getElementById('activePlayerSection');
@@ -528,16 +483,32 @@
             titleElem.innerText = title;
             playerSection.style.display = 'block';
             
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' );
 
-            player.src({ src: videoUrl, type: 'video/mp4' });
-            player.play().catch(e => console.log("Auto-play blocked:", e));
+            // যদি আগের কোনো প্লেয়ার রান করে থাকে তবে তা ডিস্ট্রয় করে দেওয়া
+            if (clapprPlayer) {
+                clapprPlayer.destroy();
+            }
+
+            // নতুন Clappr প্লেয়ার ইনিশিয়ালাইজেশন
+            clapprPlayer = new Clappr.Player({
+                source: videoUrl,
+                parentId: "#clappr-player-container",
+                width: '100%',
+                height: '100%',
+                autoPlay: true,
+                plugins: [],
+                watermark: "",
+                position: 'top-right'
+            });
         }
 
         function goHome() {
             const playerSection = document.getElementById('activePlayerSection');
-            player.pause();
-            player.src('');
+            if (clapprPlayer) {
+                clapprPlayer.destroy();
+                clapprPlayer = null;
+            }
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
