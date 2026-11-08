@@ -6,7 +6,7 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Adsterra Social Bar Script (Head এ যুক্ত করা হলো) -->
+    <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
 
     <style>
@@ -95,7 +95,7 @@
             padding: 4px;
         }
 
-        /* Professional Login Button (Smartlink যুক্ত করা হয়েছে) */
+        /* Professional Login Button (Smartlink যুক্ত) */
         .pro-login-btn {
             display: flex;
             align-items: center;
@@ -248,23 +248,21 @@
             color: #888899;
         }
 
-        /* Dedicated Player Page */
+        /* Dedicated Player Page & Fullscreen Fixes */
         .player-wrapper {
             width: 100%;
             background: #000;
+            aspect-ratio: 16/9;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            max-height: 80vh; 
         }
         .player-wrapper video {
             width: 100%;
-            height: auto;
-            max-height: 80vh;
-            object-fit: contain; 
-            display: block;
-            margin: 0 auto;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
         }
         .player-info-section {
             padding: 16px;
@@ -377,7 +375,7 @@
         </div>
         <div class="header-right">
             <i class="fa-solid fa-magnifying-glass icon-btn" onclick="toggleSearch()"></i>
-            <!-- Login বাটনে Smartlink যুক্ত করা হলো -->
+            <!-- Login বাটনে Smartlink যুক্ত -->
             <a href="https://budgetezy.org/4/9aadcfcc9f7709bf96a492763d55c9ed" target="_blank" class="pro-login-btn">
                 <i class="fa-solid fa-user-lock"></i>
                 <span>Login</span>
@@ -418,12 +416,11 @@
         </ul>
     </div>
 
-    <!-- Page 1: YouTube Style Home Feed with Your Video & Thumbnail Links -->
+    <!-- PAGE 1: Home Feed View -->
     <div id="page-home" class="page-view active-page">
         <div style="padding: 16px; max-width: 600px; margin: 0 auto;">
             <div class="video-feed" id="videoFeed">
-                
-                <!-- আপনার দেওয়া ভিডিও এবং থাম্বনেইল লিংক দিয়ে কার্ড তৈরি করা হলো -->
+                <!-- আপনার দেওয়া ভিডিও ও থাম্বনেইল লিংক দিয়ে কার্ড -->
                 <div class="video-card" onclick="openPlayer('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
                     <div class="thumbnail-container">
                         <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
@@ -437,12 +434,11 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Page 2: Dedicated Player Page -->
+    <!-- PAGE 2: Dedicated Player View -->
     <div id="page-player" class="page-view">
         <div class="player-wrapper">
             <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
@@ -453,7 +449,7 @@
             <h2 id="playerTitle" style="font-size: 16px; margin-bottom: 6px;">Stream Title</h2>
             <p style="font-size: 13px; color: #888899;">Streaming smoothly via XSTAR Core</p>
             
-            <!-- Adsterra 728x90 Banner Ad এখানে বসানো হয়েছে -->
+            <!-- Adsterra 728x90 Banner Ad -->
             <div id="adsterra-banner-container" style="margin-top: 20px; text-align: center; overflow-x: auto;">
                 <script>
                   atOptions = {
@@ -472,7 +468,7 @@
     <!-- Toast Popup Notification -->
     <div class="toast-msg" id="toast">Action Activated</div>
 
-    <!-- Adsterra Popunder Script (Body-র শেষে যুক্ত করা হলো) -->
+    <!-- Adsterra Popunder Script -->
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
     <script>
