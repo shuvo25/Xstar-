@@ -261,10 +261,22 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Clappr Player Customization & Accent Color */
+        /* Clappr ফুলস্ক্রিন পারফেক্ট ফিট ফিক্স */
         .player-wrapper [data-player] {
             width: 100% !important;
             height: 100% !important;
+        }
+        
+        /* ফুলস্ক্রিন মোডে ভিডিও যেন পুরো স্ক্রিন জুড়ে থাকে এবং কালো দাগ দূর হয় */
+        :-webkit-full-screen .player-wrapper, :-webkit-full-screen [data-player], :-webkit-full-screen video {
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: cover !important;
+        }
+        :fullscreen .player-wrapper, :fullscreen [data-player], :fullscreen video {
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: cover !important;
         }
 
         .player-info-box {
@@ -481,13 +493,11 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // যদি আগের কোনো প্লেয়ার রান করে থাকে তবে তা ডিস্ট্রয় করে দেওয়া
             if (clapprPlayer) {
                 clapprPlayer.destroy();
                 clapprPlayer = null;
             }
 
-            // নতুন Clappr প্লেয়ার ইনিশিয়ালাইজেশন
             clapprPlayer = new Clappr.Player({
                 source: videoUrl,
                 parentId: "#clappr-player-container",
