@@ -175,6 +175,14 @@
             margin: 0 auto;
         }
 
+        /* Pages View Control */
+        .page-view {
+            display: none;
+        }
+        .page-view.active {
+            display: block;
+        }
+
         /* Video Feed & Cards */
         .video-feed {
             display: flex;
@@ -244,11 +252,7 @@
             color: #888899;
         }
 
-        /* Active Player Section */
-        #activePlayerSection {
-            display: none;
-            margin-bottom: 20px;
-        }
+        /* Video Player Page Specific Style */
         .player-wrapper {
             width: 100%;
             aspect-ratio: 16/9;
@@ -258,30 +262,29 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
-
-        /* নেটিভ প্রো ভিডিও ট্যাগ যা ফুলস্ক্রিনে কোনো কালো দাগ বা অতিরিক্ত জুম ছাড়াই একদম পারফেক্ট দেখাবে */
         .player-wrapper video {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* নরমাল অবস্থায় ভিডিওর অনুপাত ঠিক রাখবে */
+            object-fit: contain;
             background: #000;
         }
-
-        /* ফুলস্ক্রিন মোডে গেলে ভিডিওটি যেন একদম নিখুঁতভাবে স্ক্রিন কভার করে */
-        .player-wrapper video:fullscreen {
-            object-fit: contain;
-            width: 100vw;
-            height: 100vh;
-        }
-        .player-wrapper video:-webkit-full-screen {
-            object-fit: contain;
-            width: 100vw;
-            height: 100vh;
-        }
-
         .player-info-box {
-            padding: 12px 0;
+            padding: 16px 0;
             text-align: left;
+        }
+        .back-to-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1c1c28;
+            color: #ff5500;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 85, 0, 0.3);
         }
 
         /* Side Menu Drawer */
@@ -406,8 +409,8 @@
         </div>
     </div>
 
-    <!-- Category Tabs -->
-    <div class="category-bar">
+    <!-- Category Tabs (Only visible on Home Page) -->
+    <div class="category-bar" id="categoryBar">
         <span class="cat-chip active" onclick="selectCat(this, 'All')">All</span>
         <span class="cat-chip" onclick="selectCat(this, 'Recommend')">Recommend</span>
         <span class="cat-chip" onclick="selectCat(this, 'Related')">Related</span>
@@ -431,22 +434,62 @@
         </ul>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Container -->
     <div class="main-container">
         
-        <!-- Active Video Player Section (Native HTML5 Pro Player) -->
-        <div id="activePlayerSection">
+        <!-- ================= PAGE 1: HOME PAGE ================= -->
+        <div id="homePage" class="page-view active">
+            <div class="video-feed" id="videoFeed">
+                <!-- Video Item 1 -->
+                <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
+                    <div class="thumbnail-container">
+                        <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
+                        <div class="video-duration">HD</div>
+                    </div>
+                    <div class="video-details">
+                        <div class="channel-avatar">X</div>
+                        <div class="video-meta">
+                            <h3>Busty Brunette Executive Seals the Deal with a Huge Cock</h3>
+                            <p>XSTAR Stream • 25K views • Today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Item 2 (Duplicate for testing list feed) -->
+                <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Executive Office Special Stream')">
+                    <div class="thumbnail-container">
+                        <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
+                        <div class="video-duration">4K</div>
+                    </div>
+                    <div class="video-details">
+                        <div class="channel-avatar">S</div>
+                        <div class="video-meta">
+                            <h3>Executive Office Special Stream & High Quality Production</h3>
+                            <p>XSTAR Exclusive • 42K views • Yesterday</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 2: PLAYER PAGE ================= -->
+        <div id="playerPage" class="page-view">
+            <div class="back-to-home-btn" onclick="goHome()">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </div>
+            
             <div class="player-wrapper">
                 <video id="nativeVideoPlayer" controls playsinline preload="auto">
                     Your browser does not support the video tag.
                 </video>
             </div>
+
             <div class="player-info-box">
-                <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
-                <p style="font-size: 12px; color: #888899;">Streaming smoothly via XSTAR Native Core</p>
+                <h2 id="playerTitle" style="font-size: 16px; margin-bottom: 6px; color: #fff;">Stream Title</h2>
+                <p style="font-size: 12px; color: #888899; margin-bottom: 20px;">Streaming via XSTAR Multi-Page Core</p>
                 
                 <!-- Adsterra 728x90 Banner Ad -->
-                <div id="adsterra-banner-container" style="margin-top: 15px; text-align: center; overflow-x: auto;">
+                <div id="adsterra-banner-container" style="text-align: center; overflow-x: auto;">
                     <script>
                       atOptions = {
                         'key' : '2e3d20a07639f661c1593b4c267d65ab',
@@ -461,22 +504,6 @@
             </div>
         </div>
 
-        <!-- Video Feed List -->
-        <div class="video-feed" id="videoFeed">
-            <div class="video-card" onclick="playVideo('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
-                <div class="thumbnail-container">
-                    <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
-                    <div class="video-duration">HD</div>
-                </div>
-                <div class="video-details">
-                    <div class="channel-avatar">X</div>
-                    <div class="video-meta">
-                        <h3>Busty Brunette Executive Seals the Deal with a Huge Cock</h3>
-                        <p>XSTAR Stream • 25K views • Today</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Toast Popup Notification -->
@@ -487,26 +514,35 @@
 
     <script>
         const videoElement = document.getElementById('nativeVideoPlayer');
+        const homePage = document.getElementById('homePage');
+        const playerPage = document.getElementById('playerPage');
+        const categoryBar = document.getElementById('categoryBar');
 
-        function playVideo(videoUrl, title) {
-            const playerSection = document.getElementById('activePlayerSection');
-            const titleElem = document.getElementById('playerTitle');
+        function openPlayerPage(videoUrl, title) {
+            // হোম পেজ হাইড করে প্লেয়ার পেজ শো করা
+            homePage.classList.remove('active');
+            categoryBar.style.display = 'none';
+            playerPage.classList.add('active');
 
-            titleElem.innerText = title;
-            playerSection.style.display = 'block';
-            
+            document.getElementById('playerTitle').innerText = title;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
+            // ভিডিও লোড এবং অটো প্লে
             videoElement.src = videoUrl;
             videoElement.load();
             videoElement.play().catch(e => console.log("Auto-play prevented:", e));
         }
 
         function goHome() {
-            const playerSection = document.getElementById('activePlayerSection');
+            // ভিডিও পজ ও ক্লিয়ার করা
             videoElement.pause();
             videoElement.src = '';
-            playerSection.style.display = 'none';
+
+            // প্লেয়ার পেজ হাইড করে হোম পেজ শো করা
+            playerPage.classList.remove('active');
+            homePage.classList.add('active');
+            categoryBar.style.display = 'flex';
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
