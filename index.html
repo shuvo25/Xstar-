@@ -6,8 +6,8 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Plyr CSS CDN (প্রফেশনাল প্লেয়ার স্টাইল) -->
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <!-- Video.js CSS CDN -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
     <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
@@ -247,7 +247,7 @@
             color: #888899;
         }
 
-        /* Active Player Section (Plyr Integration) */
+        /* Active Player Section (Perfect Fit Fix) */
         #activePlayerSection {
             display: none;
             margin-bottom: 20px;
@@ -259,15 +259,33 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        /* Plyr কাস্টম কালার ও ফুলস্ক্রিন ফিক্স */
-        :root {
-            --plyr-color-main: #ff5500;
-        }
-        .plyr {
-            width: 100%;
+
+        /* Video.js নিখুঁত ফুল ফিট এবং কাস্টম কালার */
+        .video-js {
+            width: 100% !important;
+            height: auto !important;
             aspect-ratio: 16/9;
-            max-height: 80vh;
+            background-color: #000;
+        }
+        .video-js .vjs-tech {
+            object-fit: contain;
+        }
+        .video-js .vjs-big-play-button {
+            background-color: #ff5500;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .video-js .vjs-control-bar {
+            background-color: rgba(18, 18, 26, 0.95);
+        }
+        .vjs-play-progress {
+            background-color: #ff5500 !important;
         }
 
         .player-info-box {
@@ -425,12 +443,15 @@
     <!-- Main Content Area -->
     <div class="main-container">
         
-        <!-- Active Video Player Section (Plyr Player) -->
+        <!-- Active Video Player Section -->
         <div id="activePlayerSection">
             <div class="player-wrapper">
-                <video id="mainVideoPlayer" controls playsinline webkit-playsinline>
-                    Your browser does not support the video tag.
-                </video>
+                <video-js id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" playsinline>
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video-js>
             </div>
             <div class="player-info-box">
                 <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
@@ -476,16 +497,18 @@
     <!-- Adsterra Popunder Script -->
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
-    <!-- Plyr JS CDN -->
-    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <!-- Video.js JS CDN -->
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
     <script>
-        // Plyr প্লেয়ার ইনিশিয়ালাইজ করা
-        const player = new Plyr('#mainVideoPlayer', {
-            autoplay: false,
-            clickToPlay: true,
-            ratio: '16:9',
-            fullscreen: { enabled: true, fallback: true, iosNative: true }
+        // Video.js প্লেয়ার ইনিশিয়ালাইজেশন
+        let player = videojs('my-video', {
+            fluid: true,
+            responsive: true,
+            fill: true,
+            controlBar: {
+                volumePanel: { inline: false }
+            }
         });
 
         function playVideo(videoUrl, title) {
@@ -497,22 +520,14 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Plyr এর মাধ্যমে সোর্স পরিবর্তন করে প্লে করা
-            player.source = {
-                type: 'video',
-                sources: [
-                    {
-                        src: videoUrl,
-                        type: 'video/mp4',
-                    },
-                ],
-            };
+            player.src({ src: videoUrl, type: 'video/mp4' });
             player.play().catch(e => console.log("Auto-play blocked:", e));
         }
 
         function goHome() {
             const playerSection = document.getElementById('activePlayerSection');
-            player.stop();
+            player.pause();
+            player.src('');
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
