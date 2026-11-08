@@ -244,7 +244,7 @@
             color: #888899;
         }
 
-        /* Active Player Section (Inline Fixed Layout) */
+        /* Active Player Section (Fixed Fullscreen Support) */
         #activePlayerSection {
             display: none;
             margin-bottom: 20px;
@@ -261,7 +261,7 @@
         .player-wrapper video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover; /* ব্যাকগ্রাউন্ড কালার এড়াতে সম্পূর্ণ কভার মোড */
             background: #000;
             display: block;
         }
@@ -420,9 +420,9 @@
     <!-- Main Content Area -->
     <div class="main-container">
         
-        <!-- Active Video Player Section (উপরের দিকে ভিডিও প্লে হওয়ার জায়গা) -->
+        <!-- Active Video Player Section -->
         <div id="activePlayerSection">
-            <div class="player-wrapper">
+            <div class="player-wrapper" id="playerWrapperBox">
                 <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
                     Your browser does not support the video tag.
                 </video>
@@ -449,7 +449,6 @@
 
         <!-- Video Feed List -->
         <div class="video-feed" id="videoFeed">
-            <!-- আপনার ভিডিও কার্ড -->
             <div class="video-card" onclick="playVideo('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
                 <div class="thumbnail-container">
                     <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
@@ -480,9 +479,8 @@
 
             titleElem.innerText = title;
             videoElem.src = videoUrl;
-            playerSection.style.display = 'block'; // প্লেয়ার সেকশন দৃশ্যমান করা
+            playerSection.style.display = 'block';
             
-            // স্ক্রিন ওপরের দিকে নিয়ে যাওয়া যাতে ভিডিওটি ফুল স্ক্রিনে সুন্দরভাবে দেখা যায়
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             videoElem.play().catch(e => console.log("Auto-play blocked:", e));
@@ -497,6 +495,16 @@
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // ব্রাউজারের ফুলস্ক্রিন কনফ্লিক트 ফিক্স করার জন্য কাস্টম ইভেন্ট হ্যান্ডলার
+        const videoElement = document.getElementById('mainVideoPlayer');
+        const playerBox = document.getElementById('playerWrapperBox');
+
+        videoElement.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                videoElement.style.objectFit = 'cover';
+            }
+        });
 
         function toggleSideMenu() {
             const menu = document.getElementById('sideMenu');
