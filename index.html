@@ -170,10 +170,10 @@
 
         /* Page Switcher Views */
         .page-view {
-            display: none;
+            display: none !important;
         }
         .page-view.active-page {
-            display: block;
+            display: block !important;
         }
 
         /* YouTube Style Video Card Design */
@@ -248,10 +248,9 @@
             color: #888899;
         }
 
-        /* Dedicated Player Page Layout Fix */
+        /* Dedicated Player Page Fix */
         #page-player {
             width: 100%;
-            min-height: calc(100vh - 65px);
             background: #08080c;
         }
         .player-wrapper {
@@ -425,7 +424,7 @@
     <div id="page-home" class="page-view active-page">
         <div style="padding: 16px; max-width: 600px; margin: 0 auto;">
             <div class="video-feed" id="videoFeed">
-                <!-- আপনার দেওয়া ভিডিও ও থাম্বনেইল লিংক দিয়ে কার্ড -->
+                <!-- আপনার ভিডিও কার্ড -->
                 <div class="video-card" onclick="openPlayer('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
                     <div class="thumbnail-container">
                         <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
@@ -480,8 +479,16 @@
         window.history.replaceState({page: 'home'}, '', '#home');
 
         function switchPage(pageId, pushHistory = true) {
-            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
-            document.getElementById('page-' + pageId).classList.add('active-page');
+            // সমস্ত পেজ থেকে active-page ক্লাস রিমুভ করা
+            document.querySelectorAll('.page-view').forEach(p => {
+                p.classList.remove('active-page');
+            });
+
+            // কাঙ্ক্ষিত পেজটি সিলেক্ট করে active-page ক্লাস যুক্ত করা
+            const targetPage = document.getElementById('page-' + pageId);
+            if(targetPage) {
+                targetPage.classList.add('active-page');
+            }
 
             const videoElem = document.getElementById('mainVideoPlayer');
             if(pageId !== 'player') {
@@ -500,9 +507,7 @@
         }
 
         window.addEventListener('popstate', function(event) {
-            if (document.getElementById('page-player').classList.contains('active-page')) {
-                switchPage('home', false);
-            }
+            switchPage('home', false);
         });
 
         function openPlayer(videoUrl = "", title = "") {
