@@ -168,15 +168,14 @@
             box-shadow: 0 2px 8px rgba(255, 85, 0, 0.4);
         }
 
-        /* Page Switcher Views */
-        .page-view {
-            display: none !important;
-        }
-        .page-view.active-page {
-            display: block !important;
+        /* Main Container Layout */
+        .main-container {
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* YouTube Style Video Card Design */
+        /* Video Feed & Cards */
         .video-feed {
             display: flex;
             flex-direction: column;
@@ -189,9 +188,6 @@
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.2s;
-        }
-        .video-card:hover {
-            transform: translateY(-2px);
         }
         .thumbnail-container {
             width: 100%;
@@ -248,28 +244,29 @@
             color: #888899;
         }
 
-        /* Dedicated Player Page Fix */
-        #page-player {
-            width: 100%;
-            background: #08080c;
+        /* Active Player Section (Inline Fixed Layout) */
+        #activePlayerSection {
+            display: none;
+            margin-bottom: 20px;
         }
         .player-wrapper {
             width: 100%;
             background: #000;
             aspect-ratio: 16/9;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .player-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: contain;
             background: #000;
+            display: block;
         }
-        .player-info-section {
-            padding: 16px;
+        .player-info-box {
+            padding: 12px 0;
             text-align: left;
         }
 
@@ -357,7 +354,7 @@
     <header class="header">
         <div class="header-left">
             <i class="fa-solid fa-ellipsis-vertical menu-btn" onclick="toggleSideMenu()"></i>
-            <div class="logo-box" onclick="switchPage('home')">
+            <div class="logo-box" onclick="goHome()">
                 <div class="logo-icon-3d">
                     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -413,58 +410,58 @@
             <i class="fa-solid fa-xmark" style="color:#aaa; cursor:pointer; font-size:20px;" onclick="toggleSideMenu()"></i>
         </div>
         <ul class="menu-item-list">
-            <li onclick="toggleSideMenu(); switchPage('home')"><i class="fa-solid fa-house"></i> Home Feed</li>
+            <li onclick="toggleSideMenu(); goHome()"><i class="fa-solid fa-house"></i> Home Feed</li>
             <li onclick="toggleSideMenu(); showSearchHistory()"><i class="fa-solid fa-clock-rotate-left"></i> Search History</li>
             <li onclick="toggleSideMenu(); showWatchHistory()"><i class="fa-solid fa-video"></i> Watch History</li>
             <li onclick="toggleSideMenu(); downloadApp()"><i class="fa-solid fa-cloud-arrow-down"></i> Install App (Download)</li>
         </ul>
     </div>
 
-    <!-- PAGE 1: Home Feed View -->
-    <div id="page-home" class="page-view active-page">
-        <div style="padding: 16px; max-width: 600px; margin: 0 auto;">
-            <div class="video-feed" id="videoFeed">
-                <!-- আপনার ভিডিও কার্ড -->
-                <div class="video-card" onclick="openPlayer('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
-                    <div class="thumbnail-container">
-                        <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
-                        <div class="video-duration">HD</div>
-                    </div>
-                    <div class="video-details">
-                        <div class="channel-avatar">X</div>
-                        <div class="video-meta">
-                            <h3>Busty Brunette Executive Seals the Deal with a Huge Cock</h3>
-                            <p>XSTAR Stream • 25K views • Today</p>
-                        </div>
-                    </div>
+    <!-- Main Content Area -->
+    <div class="main-container">
+        
+        <!-- Active Video Player Section (উপরের দিকে ভিডিও প্লে হওয়ার জায়গা) -->
+        <div id="activePlayerSection">
+            <div class="player-wrapper">
+                <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="player-info-box">
+                <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
+                <p style="font-size: 12px; color: #888899;">Streaming smoothly via XSTAR Core</p>
+                
+                <!-- Adsterra 728x90 Banner Ad -->
+                <div id="adsterra-banner-container" style="margin-top: 15px; text-align: center; overflow-x: auto;">
+                    <script>
+                      atOptions = {
+                        'key' : '2e3d20a07639f661c1593b4c267d65ab',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://czernik.org/22/2e3d20a07639f661c1593b4c267d65ab"></script>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- PAGE 2: Dedicated Player View -->
-    <div id="page-player" class="page-view">
-        <div class="player-wrapper">
-            <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div class="player-info-section">
-            <h2 id="playerTitle" style="font-size: 16px; margin-bottom: 6px;">Stream Title</h2>
-            <p style="font-size: 13px; color: #888899;">Streaming smoothly via XSTAR Core</p>
-            
-            <!-- Adsterra 728x90 Banner Ad -->
-            <div id="adsterra-banner-container" style="margin-top: 20px; text-align: center; overflow-x: auto;">
-                <script>
-                  atOptions = {
-                    'key' : '2e3d20a07639f661c1593b4c267d65ab',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://czernik.org/22/2e3d20a07639f661c1593b4c267d65ab"></script>
+        <!-- Video Feed List -->
+        <div class="video-feed" id="videoFeed">
+            <!-- আপনার ভিডিও কার্ড -->
+            <div class="video-card" onclick="playVideo('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
+                <div class="thumbnail-container">
+                    <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
+                    <div class="video-duration">HD</div>
+                </div>
+                <div class="video-details">
+                    <div class="channel-avatar">X</div>
+                    <div class="video-meta">
+                        <h3>Busty Brunette Executive Seals the Deal with a Huge Cock</h3>
+                        <p>XSTAR Stream • 25K views • Today</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -476,48 +473,29 @@
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
     <script>
-        window.history.replaceState({page: 'home'}, '', '#home');
-
-        function switchPage(pageId, pushHistory = true) {
-            // সমস্ত পেজ থেকে active-page ক্লাস রিমুভ করা
-            document.querySelectorAll('.page-view').forEach(p => {
-                p.classList.remove('active-page');
-            });
-
-            // কাঙ্ক্ষিত পেজটি সিলেক্ট করে active-page ক্লাস যুক্ত করা
-            const targetPage = document.getElementById('page-' + pageId);
-            if(targetPage) {
-                targetPage.classList.add('active-page');
-            }
-
+        function playVideo(videoUrl, title) {
+            const playerSection = document.getElementById('activePlayerSection');
             const videoElem = document.getElementById('mainVideoPlayer');
-            if(pageId !== 'player') {
-                videoElem.pause();
-                videoElem.src = ""; 
-            }
-            window.scrollTo(0, 0);
+            const titleElem = document.getElementById('playerTitle');
 
-            if (pushHistory) {
-                if (pageId === 'player') {
-                    window.history.pushState({page: 'player'}, '', '#player');
-                } else {
-                    window.history.pushState({page: 'home'}, '', '#home');
-                }
-            }
+            titleElem.innerText = title;
+            videoElem.src = videoUrl;
+            playerSection.style.display = 'block'; // প্লেয়ার সেকশন দৃশ্যমান করা
+            
+            // স্ক্রিন ওপরের দিকে নিয়ে যাওয়া যাতে ভিডিওটি ফুল স্ক্রিনে সুন্দরভাবে দেখা যায়
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            videoElem.play().catch(e => console.log("Auto-play blocked:", e));
         }
 
-        window.addEventListener('popstate', function(event) {
-            switchPage('home', false);
-        });
-
-        function openPlayer(videoUrl = "", title = "") {
-            switchPage('player');
+        function goHome() {
+            const playerSection = document.getElementById('activePlayerSection');
             const videoElem = document.getElementById('mainVideoPlayer');
-            if(videoUrl) {
-                videoElem.src = videoUrl;
-                document.getElementById('playerTitle').innerText = title;
-                videoElem.play().catch(e => console.log("Auto-play blocked:", e));
-            }
+            
+            videoElem.pause();
+            videoElem.src = "";
+            playerSection.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleSideMenu() {
