@@ -266,10 +266,6 @@
             width: 100% !important;
             height: 100% !important;
         }
-        .media-control[data-media-control] .media-control-layer[data-controls] .bar-background[data-background],
-        .media-control[data-media-control] .media-control-layer[data-controls] .bar-fill-1[data-fill] {
-            background-color: #ff5500 !important;
-        }
 
         .player-info-box {
             padding: 12px 0;
@@ -483,11 +479,12 @@
             titleElem.innerText = title;
             playerSection.style.display = 'block';
             
-            window.scrollTo({ top: 0, behavior: 'smooth' );
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             // যদি আগের কোনো প্লেয়ার রান করে থাকে তবে তা ডিস্ট্রয় করে দেওয়া
             if (clapprPlayer) {
                 clapprPlayer.destroy();
+                clapprPlayer = null;
             }
 
             // নতুন Clappr প্লেয়ার ইনিশিয়ালাইজেশন
@@ -496,10 +493,7 @@
                 parentId: "#clappr-player-container",
                 width: '100%',
                 height: '100%',
-                autoPlay: true,
-                plugins: [],
-                watermark: "",
-                position: 'top-right'
+                autoPlay: true
             });
         }
 
