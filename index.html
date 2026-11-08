@@ -247,7 +247,7 @@
             color: #888899;
         }
 
-        /* Active Player Section (Perfect Fit Fix) */
+        /* Active Player Section */
         #activePlayerSection {
             display: none;
             margin-bottom: 20px;
@@ -260,7 +260,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Video.js নিখুঁত ফুল ফিট এবং কাস্টম কালার */
+        /* Video.js আলটিমেট ফুলস্ক্রিন এবং প্রফেশনাল ফিট ফিক্স */
         .video-js {
             width: 100% !important;
             height: auto !important;
@@ -268,8 +268,16 @@
             background-color: #000;
         }
         .video-js .vjs-tech {
-            object-fit: contain;
+            object-fit: cover !important; /* ফুলস্ক্রিনে কোনো কালো দাগ না রেখে পুরো স্ক্রিন কভার করবে */
         }
+        
+        /* যখন ফুলস্ক্রিন মোডে যাবে তখন হান্ড্রেড পার্সেন্ট ভিউপোর্ট দখল করবে */
+        .video-js.vjs-fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            padding-top: 0 !important;
+        }
+
         .video-js .vjs-big-play-button {
             background-color: #ff5500;
             border: none;
@@ -501,13 +509,15 @@
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
     <script>
-        // Video.js প্লেয়ার ইনিশিয়ালাইজেশন
         let player = videojs('my-video', {
             fluid: true,
             responsive: true,
             fill: true,
             controlBar: {
                 volumePanel: { inline: false }
+            },
+            fullscreen: {
+                options: { navigationUI: 'hide' }
             }
         });
 
