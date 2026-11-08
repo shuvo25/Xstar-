@@ -6,9 +6,6 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Clappr Player CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-
     <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
 
@@ -259,24 +256,27 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        /* Clappr ফুলস্ক্রিন পারফেক্ট ফিট ফিক্স */
-        .player-wrapper [data-player] {
-            width: 100% !important;
-            height: 100% !important;
+        /* নেটিভ প্রো ভিডিও ট্যাগ যা ফুলস্ক্রিনে কোনো কালো দাগ বা অতিরিক্ত জুম ছাড়াই একদম পারফেক্ট দেখাবে */
+        .player-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* নরমাল অবস্থায় ভিডিওর অনুপাত ঠিক রাখবে */
+            background: #000;
         }
-        
-        /* ফুলস্ক্রিন মোডে ভিডিও যেন পুরো স্ক্রিন জুড়ে থাকে এবং কালো দাগ দূর হয় */
-        :-webkit-full-screen .player-wrapper, :-webkit-full-screen [data-player], :-webkit-full-screen video {
-            width: 100vw !important;
-            height: 100vh !important;
-            object-fit: cover !important;
+
+        /* ফুলস্ক্রিন মোডে গেলে ভিডিওটি যেন একদম নিখুঁতভাবে স্ক্রিন কভার করে */
+        .player-wrapper video:fullscreen {
+            object-fit: contain;
+            width: 100vw;
+            height: 100vh;
         }
-        :fullscreen .player-wrapper, :fullscreen [data-player], :fullscreen video {
-            width: 100vw !important;
-            height: 100vh !important;
-            object-fit: cover !important;
+        .player-wrapper video:-webkit-full-screen {
+            object-fit: contain;
+            width: 100vw;
+            height: 100vh;
         }
 
         .player-info-box {
@@ -434,12 +434,16 @@
     <!-- Main Content Area -->
     <div class="main-container">
         
-        <!-- Active Video Player Section (Clappr Player) -->
+        <!-- Active Video Player Section (Native HTML5 Pro Player) -->
         <div id="activePlayerSection">
-            <div class="player-wrapper" id="clappr-player-container"></div>
+            <div class="player-wrapper">
+                <video id="nativeVideoPlayer" controls playsinline preload="auto">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="player-info-box">
                 <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
-                <p style="font-size: 12px; color: #888899;">Streaming smoothly via Clappr Core</p>
+                <p style="font-size: 12px; color: #888899;">Streaming smoothly via XSTAR Native Core</p>
                 
                 <!-- Adsterra 728x90 Banner Ad -->
                 <div id="adsterra-banner-container" style="margin-top: 15px; text-align: center; overflow-x: auto;">
@@ -482,7 +486,7 @@
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
     <script>
-        let clapprPlayer = null;
+        const videoElement = document.getElementById('nativeVideoPlayer');
 
         function playVideo(videoUrl, title) {
             const playerSection = document.getElementById('activePlayerSection');
@@ -493,26 +497,15 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (clapprPlayer) {
-                clapprPlayer.destroy();
-                clapprPlayer = null;
-            }
-
-            clapprPlayer = new Clappr.Player({
-                source: videoUrl,
-                parentId: "#clappr-player-container",
-                width: '100%',
-                height: '100%',
-                autoPlay: true
-            });
+            videoElement.src = videoUrl;
+            videoElement.load();
+            videoElement.play().catch(e => console.log("Auto-play prevented:", e));
         }
 
         function goHome() {
             const playerSection = document.getElementById('activePlayerSection');
-            if (clapprPlayer) {
-                clapprPlayer.destroy();
-                clapprPlayer = null;
-            }
+            videoElement.pause();
+            videoElement.src = '';
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
