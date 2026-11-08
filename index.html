@@ -455,7 +455,7 @@
                     </div>
                 </div>
 
-                <!-- Video Item 2 (Duplicate for testing list feed) -->
+                <!-- Video Item 2 -->
                 <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Executive Office Special Stream')">
                     <div class="thumbnail-container">
                         <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
@@ -519,7 +519,9 @@
         const categoryBar = document.getElementById('categoryBar');
 
         function openPlayerPage(videoUrl, title) {
-            // হোম পেজ হাইড করে প্লেয়ার পেজ শো করা
+            // ব্রাউজার হিস্টরিতে নতুন স্টেট পুশ করা যাতে ব্যাক বাটন কাজ করে
+            history.pushState({page: 'player'}, '', '#player');
+
             homePage.classList.remove('active');
             categoryBar.style.display = 'none';
             playerPage.classList.add('active');
@@ -527,24 +529,32 @@
             document.getElementById('playerTitle').innerText = title;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // ভিডিও লোড এবং অটো প্লে
             videoElement.src = videoUrl;
             videoElement.load();
             videoElement.play().catch(e => console.log("Auto-play prevented:", e));
         }
 
         function goHome() {
-            // ভিডিও পজ ও ক্লিয়ার করা
             videoElement.pause();
             videoElement.src = '';
 
-            // প্লেয়ার পেজ হাইড করে হোম পেজ শো করা
             playerPage.classList.remove('active');
             homePage.classList.add('active');
             categoryBar.style.display = 'flex';
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // মোবাইলের ব্যাক বাটন বা ব্রাউজারের ব্যাক বাটনে ক্লিক করলে হোম পেজে ফিরে যাওয়া
+        window.addEventListener('popstate', function(event) {
+            if (playerPage.classList.contains('active')) {
+                videoElement.pause();
+                videoElement.src = '';
+                playerPage.classList.remove('active');
+                homePage.classList.add('active');
+                categoryBar.style.display = 'flex';
+            }
+        });
 
         function toggleSideMenu() {
             const menu = document.getElementById('sideMenu');
