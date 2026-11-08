@@ -260,7 +260,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Video.js আলটিমেট ফুলস্ক্রিন এবং প্রফেশনাল ফিট ফিক্স */
+        /* Video.js পারফেক্ট আসপেক্ট রেশিও এবং কন্টেইন ফিক্স */
         .video-js {
             width: 100% !important;
             height: auto !important;
@@ -268,14 +268,14 @@
             background-color: #000;
         }
         .video-js .vjs-tech {
-            object-fit: cover !important; /* ফুলস্ক্রিনে কোনো কালো দাগ না রেখে পুরো স্ক্রিন কভার করবে */
+            object-fit: contain !important; /* ভিডিও যেন অতিরিক্ত জুম হয়ে না কেটে যায় */
         }
         
-        /* যখন ফুলস্ক্রিন মোডে যাবে তখন হান্ড্রেড পার্সেন্ট ভিউপোর্ট দখল করবে */
         .video-js.vjs-fullscreen {
             width: 100vw !important;
             height: 100vh !important;
             padding-top: 0 !important;
+            background-color: #000;
         }
 
         .video-js .vjs-big-play-button {
