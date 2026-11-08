@@ -6,6 +6,9 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- PWA Manifest Link (PWABuilder-এর জন্য আবশ্যিক) -->
+    <link rel="manifest" href="manifest.json">
+
     <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
 
@@ -519,7 +522,6 @@
         const categoryBar = document.getElementById('categoryBar');
 
         function openPlayerPage(videoUrl, title) {
-            // ব্রাউজার হিস্টরিতে নতুন স্টেট পুশ করা যাতে ব্যাক বাটন কাজ করে
             history.pushState({page: 'player'}, '', '#player');
 
             homePage.classList.remove('active');
@@ -545,7 +547,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // মোবাইলের ব্যাক বাটন বা ব্রাউজারের ব্যাক বাটনে ক্লিক করলে হোম পেজে ফিরে যাওয়া
         window.addEventListener('popstate', function(event) {
             if (playerPage.classList.contains('active')) {
                 videoElement.pause();
