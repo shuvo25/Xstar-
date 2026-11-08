@@ -6,6 +6,9 @@
     <title>XSTAR Stream</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Video.js CSS CDN -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
     <!-- Adsterra Social Bar Script -->
     <script data-cfasync="false" src="https://czernik.org/14/af6ef198ba9e6dff12caf099f10d1c69"></script>
 
@@ -244,7 +247,7 @@
             color: #888899;
         }
 
-        /* Active Player Section & Ultimate Fullscreen Fix */
+        /* Active Player Section (Video.js Custom Styling) */
         #activePlayerSection {
             display: none;
             margin-bottom: 20px;
@@ -252,34 +255,35 @@
         .player-wrapper {
             width: 100%;
             background: #000;
-            aspect-ratio: 16/9;
-            position: relative;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* ফুলস্ক্রিন মোডে গেলে কন্টেইনার এবং ভিডিও হান্ড্রেড পার্সেন্ট ফিট করার সিএসএস */
-        video:fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            object-fit: fill !important;
-            background: #000;
+        /* Video.js কাস্টম কালার থিম ও ফিট ঠিক রাখা */
+        .video-js {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
         }
-        video:-webkit-full-screen {
-            width: 100vw !important;
-            height: 100vh !important;
-            object-fit: fill !important;
-            background: #000;
+        .video-js .vjs-big-play-button {
+            background-color: #ff5500;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .video-js .vjs-control-bar {
+            background-color: rgba(18, 18, 26, 0.9);
+        }
+        .vjs-play-progress {
+            background-color: #ff5500 !important;
         }
 
-        .player-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #000;
-            display: block;
-        }
         .player-info-box {
             padding: 12px 0;
             text-align: left;
@@ -435,12 +439,15 @@
     <!-- Main Content Area -->
     <div class="main-container">
         
-        <!-- Active Video Player Section -->
+        <!-- Active Video Player Section (Video.js Player) -->
         <div id="activePlayerSection">
             <div class="player-wrapper">
-                <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
-                    Your browser does not support the video tag.
-                </video>
+                <video-js id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" playsinline>
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video-js>
             </div>
             <div class="player-info-box">
                 <h2 id="playerTitle" style="font-size: 15px; margin-bottom: 4px; color: #fff;">Stream Title</h2>
@@ -486,27 +493,37 @@
     <!-- Adsterra Popunder Script -->
     <script data-cfasync="false" src="https://capitalhospitals.org/1/2eeb5ebb995be7775028c58be44b3b01"></script>
 
+    <!-- Video.js JS CDN -->
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
     <script>
+        // Video.js প্লেয়ার সেটআপ
+        let player = videojs('my-video', {
+            fluid: true,
+            responsive: true,
+            controlBar: {
+                volumePanel: { inline: false }
+            }
+        });
+
         function playVideo(videoUrl, title) {
             const playerSection = document.getElementById('activePlayerSection');
-            const videoElem = document.getElementById('mainVideoPlayer');
             const titleElem = document.getElementById('playerTitle');
 
             titleElem.innerText = title;
-            videoElem.src = videoUrl;
             playerSection.style.display = 'block';
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            videoElem.play().catch(e => console.log("Auto-play blocked:", e));
+            // ভিডিও সোর্স সেট করে প্লে করা
+            player.src({ src: videoUrl, type: 'video/mp4' });
+            player.play().catch(e => console.log("Auto-play blocked:", e));
         }
 
         function goHome() {
             const playerSection = document.getElementById('activePlayerSection');
-            const videoElem = document.getElementById('mainVideoPlayer');
-            
-            videoElem.pause();
-            videoElem.src = "";
+            player.pause();
+            player.src('');
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
