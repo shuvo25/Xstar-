@@ -244,7 +244,7 @@
             color: #888899;
         }
 
-        /* Active Player Section & Fullscreen Fit Fix */
+        /* Active Player Section & Ultimate Fullscreen Fix */
         #activePlayerSection {
             display: none;
             margin-bottom: 20px;
@@ -258,17 +258,18 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        /* ফুলস্ক্রিন মোডের জন্য আলাদা সিএসএস রুল */
-        .player-wrapper:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            border-radius: 0;
+
+        /* ফুলস্ক্রিন মোডে গেলে কন্টেইনার এবং ভিডিও হান্ড্রেড পার্সেন্ট ফিট করার সিএসএস */
+        video:fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: fill !important;
             background: #000;
         }
-        .player-wrapper:-webkit-full-screen {
-            width: 100vw;
-            height: 100vh;
-            border-radius: 0;
+        video:-webkit-full-screen {
+            width: 100vw !important;
+            height: 100vh !important;
+            object-fit: fill !important;
             background: #000;
         }
 
@@ -436,7 +437,7 @@
         
         <!-- Active Video Player Section -->
         <div id="activePlayerSection">
-            <div class="player-wrapper" id="playerWrapperBox">
+            <div class="player-wrapper">
                 <video id="mainVideoPlayer" controls autoplay playsinline webkit-playsinline>
                     Your browser does not support the video tag.
                 </video>
@@ -509,25 +510,6 @@
             playerSection.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // ফুলস্ক্রিন চেঞ্জ হ্যান্ডলার যা নিশ্চিত করবে ভিডিও ফুলস্ক্রিনে গেলে ডিসপ্লে সঠিক থাকে
-        const videoElement = document.getElementById('mainVideoPlayer');
-        const playerWrapper = document.getElementById('playerWrapperBox');
-
-        function handleFullscreenChange() {
-            if (document.fullscreenElement || document.webkitFullscreenElement) {
-                playerWrapper.style.width = '100vw';
-                playerWrapper.style.height = '100vh';
-                videoElement.style.objectFit = 'contain';
-            } else {
-                playerWrapper.style.width = '100%';
-                playerWrapper.style.height = 'auto';
-                videoElement.style.objectFit = 'contain';
-            }
-        }
-
-        document.addEventListener('fullscreenchange', handleFullscreenChange);
-        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
         function toggleSideMenu() {
             const menu = document.getElementById('sideMenu');
