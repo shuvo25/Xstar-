@@ -258,14 +258,15 @@
             color: #888899;
         }
 
-        /* Native Banner Box Style */
-        .native-ad-box {
+        /* Ad Box Styling */
+        .ad-box {
             background: #12121a;
             border-radius: 12px;
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
             margin: 16px 0;
+            overflow-x: auto;
         }
 
         /* Video Player Page Specific Style */
@@ -455,8 +456,9 @@
         <!-- ================= PAGE 1: HOME PAGE ================= -->
         <div id="homePage" class="page-view active">
             <div class="video-feed" id="videoFeed">
-                <!-- Video Item 1 -->
-                <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal')">
+                
+                <!-- Video Item -->
+                <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Busty Brunette Executive Seals the Deal with a Huge Cock')">
                     <div class="thumbnail-container">
                         <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
                         <div class="video-duration">HD</div>
@@ -470,25 +472,39 @@
                     </div>
                 </div>
 
-                <!-- Native Banner Ad in Home Feed -->
-                <div class="native-ad-box">
+                <!-- Banner 320x50 Ad -->
+                <div class="ad-box">
+                    <script>
+                      atOptions = {
+                        'key' : '7e3594636073c9f8e80205f2af401d43',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://czernik.org/22/7e3594636073c9f8e80205f2af401d43"></script>
+                </div>
+
+                <!-- Native Banner Ad -->
+                <div class="ad-box">
                     <div id="container-1830e2d4c289f0c82507474c6b99913b"></div>
                 </div>
 
-                <!-- Video Item 2 -->
-                <div class="video-card" onclick="openPlayerPage('https://ia903105.us.archive.org/9/items/busty-brunette-executive-seals-the-deal-with-a-huge-cock/Busty_Brunette_Executive_Seals_the_Deal_with_a_Huge_Cock.mp4', 'Executive Office Special Stream')">
-                    <div class="thumbnail-container">
-                        <img src="https://ic-vt-nss.xhcdn.com/a/OGFjODhhNmFjZDk3ZjE5ZGRhNGY0YjA2ZTFhNTBhNjk/s(w:1280,h:720),webp/029/439/952/v2/2560x1440.206.webp" alt="Thumbnail">
-                        <div class="video-duration">4K</div>
-                    </div>
-                    <div class="video-details">
-                        <div class="channel-avatar">S</div>
-                        <div class="video-meta">
-                            <h3>Executive Office Special Stream & High Quality Production</h3>
-                            <p>XSTAR Exclusive • 42K views • Yesterday</p>
-                        </div>
-                    </div>
+                <!-- Banner 300x250 Ad -->
+                <div class="ad-box">
+                    <script>
+                      atOptions = {
+                        'key' : '1624f332fc314dd90c53dad2b0b6083d',
+                        'format' : 'iframe',
+                        'height' : 250,
+                        'width' : 300,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://czernik.org/22/1624f332fc314dd90c53dad2b0b6083d"></script>
                 </div>
+
             </div>
         </div>
 
@@ -508,8 +524,8 @@
                 <h2 id="playerTitle" style="font-size: 16px; margin-bottom: 6px; color: #fff;">Stream Title</h2>
                 <p style="font-size: 12px; color: #888899; margin-bottom: 20px;">Streaming via XSTAR Multi-Page Core</p>
                 
-                <!-- Adsterra 728x90 Banner Ad -->
-                <div id="adsterra-banner-container" style="text-align: center; overflow-x: auto; margin-bottom: 16px;">
+                <!-- Banner 728x90 Ad -->
+                <div class="ad-box">
                     <script>
                       atOptions = {
                         'key' : '2e3d20a07639f661c1593b4c267d65ab',
@@ -522,10 +538,39 @@
                     <script src="https://czernik.org/22/2e3d20a07639f661c1593b4c267d65ab"></script>
                 </div>
 
-                <!-- Duplicate Native Banner inside Player Page if needed or secondary placement -->
-                <div class="native-ad-box">
+                <!-- Native Banner Ad -->
+                <div class="ad-box">
                     <div id="container-1830e2d4c289f0c82507474c6b99913b"></div>
                 </div>
+
+                <!-- Banner 160x300 Ad -->
+                <div class="ad-box">
+                    <script>
+                      atOptions = {
+                        'key' : 'b03c34460aa1ee378364d2365f0bf293',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://czernik.org/22/b03c34460aa1ee378364d2365f0bf293"></script>
+                </div>
+
+                <!-- Banner 160x600 Ad -->
+                <div class="ad-box">
+                    <script>
+                      atOptions = {
+                        'key' : '13850fa55e3ea3c30e366b010b9ab1b7',
+                        'format' : 'iframe',
+                        'height' : 600,
+                        'width' : 160,
+                        'params' : {}
+                      };
+                    </script>
+                    <script src="https://czernik.org/22/13850fa55e3ea3c30e366b010b9ab1b7"></script>
+                </div>
+
             </div>
         </div>
 
