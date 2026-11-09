@@ -8,10 +8,9 @@
   "description": "Professional OTT-style video streaming app with seamless playback and monetization.",
   "icons": [
     {
-      "src": "https://img.icons8.com/external-flat-design-circle/512/external-Star-multimedia-flat-design-circle.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }
