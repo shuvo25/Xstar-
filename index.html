@@ -598,9 +598,7 @@
         const playerPage = document.getElementById('playerPage');
         const categoryBar = document.getElementById('categoryBar');
 
-        // Common function that triggers Smartlink & Popunder ads on clicking ANY video card
         function triggerAdsAndOpen(videoUrl, title) {
-            // Smartlink & Popunder ad trigger function
             if (!sessionStorage.getItem('adOpened')) {
                 sessionStorage.setItem('adOpened', 'true');
                 window.open('https://budgetezy.org/4/9aadcfcc9f7709bf96a492763d55c9ed', '_blank');
@@ -608,7 +606,6 @@
             switchToPlayer(videoUrl, title);
         }
 
-        // Render Home Page Feed (All video cards trigger ads)
         function renderHomeFeed() {
             const homeFeed = document.getElementById('homeVideoFeed');
             homeFeed.innerHTML = '';
@@ -678,7 +675,6 @@
             renderRelatedVideos(videoUrl);
         }
 
-        // Render Related Videos on Player Page (Now clicking these cards ALSO triggers ads as requested!)
         function renderRelatedVideos(currentUrl) {
             const relatedFeed = document.getElementById('relatedVideoFeed');
             relatedFeed.innerHTML = '';
@@ -687,7 +683,6 @@
                 if (video.url !== currentUrl) {
                     const card = document.createElement('div');
                     card.className = 'video-card';
-                    // Clicking related video cards also triggers the ads now
                     card.onclick = () => triggerAdsAndOpen(video.url, video.title);
                     card.innerHTML = `
                         <div class="thumbnail-container">
