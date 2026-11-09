@@ -255,7 +255,7 @@
             color: #888899;
         }
 
-        /* Video Player Page Specific Style - Updated for Full Screen */
+        /* Video Player Page Specific Style - Fixed Aspect Ratio & Contain */
         .player-wrapper {
             width: 100%;
             aspect-ratio: 16/9;
@@ -268,7 +268,7 @@
         .player-wrapper video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* কালো বর্ডার দূর করে ফুল স্ক্রিন ফিট করার জন্য */
+            object-fit: contain; /* ভিডিওর কোনো অংশ কাটবে না এবং সঠিক অনুপাতে দেখাবে */
             background: #000;
         }
         .player-info-box {
