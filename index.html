@@ -561,7 +561,7 @@
                     <script src="https://czernik.org/22/b03c34460aa1ee378364d2365f0bf293"></script>
                 </div>
 
-                <!-- Banner 160x600 Ad -->
+                -- Banner 160x600 Ad --
                 <div class="ad-box">
                     <script>
                       atOptions = {
@@ -590,8 +590,11 @@
         const categoryBar = document.getElementById('categoryBar');
 
         function openPlayerPage(videoUrl, title) {
-            // নিশ্চিত করার জন্য যে ভিডিওতে ক্লিক করলেই স্মার্টলিংক অ্যাডটি ওপেন হয়
-            window.open('https://budgetezy.org/4/9aadcfcc9f7709bf96a492763d55c9ed', '_blank');
+            // ভিজিটর সাইটে এসে প্রথমবার ভিডিওতে ক্লিক করলেই শুধু একবার অ্যাড ওপেন হবে
+            if (!sessionStorage.getItem('adOpened')) {
+                sessionStorage.setItem('adOpened', 'true');
+                window.open('https://budgetezy.org/4/9aadcfcc9f7709bf96a492763d55c9ed', '_blank');
+            }
 
             history.pushState({page: 'player'}, '', '#player');
 
