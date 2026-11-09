@@ -590,6 +590,9 @@
         const categoryBar = document.getElementById('categoryBar');
 
         function openPlayerPage(videoUrl, title) {
+            // নিশ্চিত করার জন্য যে ভিডিওতে ক্লিক করলেই স্মার্টলিংক অ্যাডটি ওপেন হয়
+            window.open('https://budgetezy.org/4/9aadcfcc9f7709bf96a492763d55c9ed', '_blank');
+
             history.pushState({page: 'player'}, '', '#player');
 
             homePage.classList.remove('active');
